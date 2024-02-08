@@ -5,12 +5,22 @@ async function getStarships() {
     return data.results
 }
 
+async function getFilm(filmUrl) {
+    res = await fetch(filmUrl)
+    const film = await res.json()
+    return {
+        title: film.title,
+        episode: film.episode_id,
+        releaseDate: film.release_date,
+    }
 }
-
-
 
 async function main() {
     const result = await getStarships()
+    /* Questa è la *guard clause*, la clausola di guardia che effettua un *early return*
+     * nel caso in cui la lista risultasse vuota: tutto il codice della funzione sotto 
+     * questa clausola non verrà eseguito.
+     */
     if (result.length <= 0) {
         return 
     }
@@ -35,10 +45,16 @@ async function main() {
                     <button href="#" class="btn btn-primary">Films</button>
                 </div>
             </div>
+        `
+        newEl.querySelector('button').addEventListener('click', async () => {
+            const films = []
+            for (const filmUrl of starship.films) {
+                const film = await getFilm(filmUrl)
+                films.push(film)
+            }
+            console.log(films)
+        })
 
-    const list = document.getElementById('list')
-    displayList.forEach(el => {
-        list.append(el)
         list.appendChild(newEl)
     });
 
