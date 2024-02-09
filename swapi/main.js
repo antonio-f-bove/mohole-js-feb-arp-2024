@@ -31,35 +31,47 @@ async function main() {
         films: el.films
     }))
 
-    console.log(result, starships)
+    console.log({result, starships})
 
     const list = document.getElementById('list')
     starships.forEach(async starship => {
         const newEl = document.createElement('li')
         newEl.classList.add('col-6')
         newEl.innerHTML = `
-            <div class="card mb-3">
-                <div class="card-body">
-                    <h5 class="card-title">${starship.name}</h5>
-                    <p class="card-text">${starship.model}</p>
-                    <button href="#" class="btn btn-primary">Films</button>
-                </div>
-            </div>
-        `
-        newEl.querySelector('button').addEventListener('click', async () => {
-            const films = []
+<div class="card mb-3">
+    <div class="card-body">
+        <h5 class="card-title">${starship.name}</h5>
+        <p class="card-text">${starship.model}</p>
+        <div style="height: 80px;">
+            <button href="#" class="btn btn-primary">Films</button> <!--  class="overflow-y-auto" -->
+        </div>
+    </div>
+</div>
+`
+        newEl.querySelector('button').addEventListener('click', async (ev) => {
+            const filmsDetails = []
             for (const filmUrl of starship.films) {
                 const film = await getFilm(filmUrl)
-                films.push(film)
+                filmsDetails.push(film)
             }
-            console.log(films)
+            console.log({filmsDetails})
+
+            const filmList = document.createElement('ul')
+            filmList.classList.add('list-group', 'h-100', 'overflow-auto')
+            filmsDetails.forEach((film) => {
+                const li = document.createElement('li')
+                li.classList.add('list-group-item');
+                li.textContent = `Episode: ${film.episode}: ${film.title}`
+                filmList.append(li)
+            })
+
+            const parent = ev.target.parentElement
+            parent.innerHTML = ''
+            parent.append(filmList)
         })
 
         list.appendChild(newEl)
     });
-
-
-    // displayStarships(starships)
 }
 
 main()
