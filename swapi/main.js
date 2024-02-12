@@ -12,9 +12,7 @@ let resources = [
 ]
 
 async function main() {
-    // card templates (different for every resource)
     resources = resources.map(el => ({...el, htmlButton: document.getElementById(el.name)}))
-    console.log({resources})
     resources.forEach((resource,_,array) => {
         const htmlButton = resource.htmlButton
         htmlButton.addEventListener('click', async (ev) => {
@@ -47,15 +45,11 @@ async function displayResource(resource) {
         }
         return resourceObject
     })
-    console.log({resourceList})
 
     resourceList.forEach(async el => {
         // TODO: extract function
         const newEl = document.createElement('li')
         newEl.classList.add('col-6')
-        // function generateNode(el, resourceName) {
-        // }
-        // newEl.innerHTML = generateNode(el, resource.name)
         if (resource.name === 'starships') {
         newEl.innerHTML = `
 <div class="card mb-3">
@@ -81,6 +75,7 @@ async function displayResource(resource) {
 </div>
 `
         }
+
         newEl.querySelector('button').addEventListener('click', async (ev) => {
             const filmsDetails = []
             for (const filmUrl of el.films) {
