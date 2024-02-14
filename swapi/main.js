@@ -1,6 +1,6 @@
 
-async function getStarships() {
-    const response = await fetch('https://swapi.dev/api/starships')
+async function getResources(resource) {
+    const response = await fetch(`https://swapi.dev/api/${resource}`)
     const data = await response.json()
     return data.results
 }
@@ -15,63 +15,87 @@ async function getFilm(filmUrl) {
     }
 }
 
-async function main() {
-    const result = await getStarships()
-    /* Questa è la *guard clause*, la clausola di guardia che effettua un *early return*
-     * nel caso in cui la lista risultasse vuota: tutto il codice della funzione sotto 
-     * questa clausola non verrà eseguito.
-     */
-    if (result.length <= 0) {
-        return 
-    }
-
-    const starships = result.map(el => ({
-        name: el.name,
-        model: el.model,
-        films: el.films
-    }))
-
-    console.log({result, starships})
-
-    const list = document.getElementById('list')
-    starships.forEach(async starship => {
-        const newEl = document.createElement('li')
-        newEl.classList.add('col-6')
-        newEl.innerHTML = `
-<div class="card mb-3">
+async function getResourceCard(data, model) {
+    const newEl = document.createElement('div')
+    newEl.classList.add('col-6', 'p-3')
+    newEl.innerHTML = `
+<div class="card">
+    <h5 class="card-header"></h5>
     <div class="card-body">
-        <h5 class="card-title">${starship.name}</h5>
-        <p class="card-text">${starship.model}</p>
-        <div style="height: 80px;">
-            <button href="#" class="btn btn-primary">Films</button> <!--  class="overflow-y-auto" -->
+        <h5 class="card-title"></h5>
+        <div>
+            <button class="btn btn-primary"></button>
         </div>
     </div>
 </div>
 `
-        newEl.querySelector('button').addEventListener('click', async (ev) => {
-            const filmsDetails = []
-            for (const filmUrl of starship.films) {
-                const film = await getFilm(filmUrl)
-                filmsDetails.push(film)
+    const h5s = newEl.querySelectorAll('h5')
+    h5s[0].textContent = data.name
+    h5s[1].textContent = data[model[1]]
+
+    const filmsButton = newEl.querySelector('button')
+    filmsButton.textContent = `Films list`
+    filmsButton.addEventListener('click', async (event) => {
+        // Qui uso Promise.all per ottimizzare la performance delle chiamate ai vari film
+        const films = await Promise.all(data.films.map(filmUrl => getFilm(filmUrl)))
+
+        const parent = event.target.parentElement
+        parent.innerHTML = ''
+
+        const filmList = document.createElement('ul')
+        filmList.classList.add('list-group')
+        filmList.style = 'height: 38px; overflow-y: scroll;'
+        films.forEach(f => {
+            const filmEl = document.createElement('li')
+            filmEl.classList.add('list-item-group')
+            filmEl.textContent = `Episode ${f.episode} - ${f.title}`
+            filmList.append(filmEl)
+        })
+        parent.append(filmList)
+    })
+
+    return newEl
+}
+
+const resources = [
+    // {name: "films", htmlButton: null},
+    { name: "people", model: ["name", "birth_year", "films"] },
+    { name: "planets", model: ["name", "climate", "films"] },
+    { name: "species", model: ["name", "classification", "films"] },
+    { name: "starships", model: ["name", "model", "films"] },
+    { name: "vehicles", model: ["name", "manufacturer", "films"] },
+]
+
+async function main() {
+    const buttonContainer = document.querySelector('#button-container')
+    const cardContainer = document.querySelector('#card-container')
+    for (const resource of resources) {
+        const button = document.createElement('button')
+        button.classList.add('btn', 'btn-primary')
+        button.textContent = resource.name
+
+        resource.htmlButton = button
+
+
+        button.addEventListener('click', async (event) => {
+            resources.forEach(el => el.htmlButton.classList.remove('active'))
+            event.target.classList.add('active')
+
+            const results = await getResources(resource.name)
+            console.log({ res: results })
+
+            cardContainer.innerHTML = ''
+            for (const r of results) {
+                const card = await getResourceCard(r, resource.model)
+                cardContainer.append(card)
             }
-            console.log({filmsDetails})
-
-            const filmList = document.createElement('ul')
-            filmList.classList.add('list-group', 'h-100', 'overflow-auto')
-            filmsDetails.forEach((film) => {
-                const li = document.createElement('li')
-                li.classList.add('list-group-item');
-                li.textContent = `Episode: ${film.episode}: ${film.title}`
-                filmList.append(li)
-            })
-
-            const parent = ev.target.parentElement
-            parent.innerHTML = ''
-            parent.append(filmList)
         })
 
-        list.appendChild(newEl)
-    });
+        buttonContainer.append(button)
+    }
+
+
+
 }
 
 main()
