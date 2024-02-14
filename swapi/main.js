@@ -1,4 +1,44 @@
 
+const resources = [
+    // {name: "films", htmlButton: null},
+    { name: "people", model: ["name", "birth_year", "films"] },
+    { name: "planets", model: ["name", "climate", "films"] },
+    { name: "species", model: ["name", "classification", "films"] },
+    { name: "starships", model: ["name", "model", "films"] },
+    { name: "vehicles", model: ["name", "manufacturer", "films"] },
+]
+
+async function main() {
+    const buttonContainer = document.querySelector('#button-container')
+    const cardContainer = document.querySelector('#card-container')
+    for (const resource of resources) {
+        const button = document.createElement('button')
+        button.classList.add('btn', 'btn-primary')
+        button.textContent = resource.name
+
+        resource.htmlButton = button
+
+
+        button.addEventListener('click', async (event) => {
+            resources.forEach(el => el.htmlButton.classList.remove('active'))
+            event.target.classList.add('active')
+
+            const results = await getResources(resource.name)
+
+            cardContainer.innerHTML = ''
+            for (const r of results) {
+                const card = await getResourceCard(r, resource.model)
+                cardContainer.append(card)
+            }
+        })
+
+        buttonContainer.append(button)
+    }
+}
+
+main()
+
+
 async function getResources(resource) {
     const response = await fetch(`https://swapi.dev/api/${resource}`)
     const data = await response.json()
@@ -56,46 +96,3 @@ async function getResourceCard(data, model) {
 
     return newEl
 }
-
-const resources = [
-    // {name: "films", htmlButton: null},
-    { name: "people", model: ["name", "birth_year", "films"] },
-    { name: "planets", model: ["name", "climate", "films"] },
-    { name: "species", model: ["name", "classification", "films"] },
-    { name: "starships", model: ["name", "model", "films"] },
-    { name: "vehicles", model: ["name", "manufacturer", "films"] },
-]
-
-async function main() {
-    const buttonContainer = document.querySelector('#button-container')
-    const cardContainer = document.querySelector('#card-container')
-    for (const resource of resources) {
-        const button = document.createElement('button')
-        button.classList.add('btn', 'btn-primary')
-        button.textContent = resource.name
-
-        resource.htmlButton = button
-
-
-        button.addEventListener('click', async (event) => {
-            resources.forEach(el => el.htmlButton.classList.remove('active'))
-            event.target.classList.add('active')
-
-            const results = await getResources(resource.name)
-            console.log({ res: results })
-
-            cardContainer.innerHTML = ''
-            for (const r of results) {
-                const card = await getResourceCard(r, resource.model)
-                cardContainer.append(card)
-            }
-        })
-
-        buttonContainer.append(button)
-    }
-
-
-
-}
-
-main()
