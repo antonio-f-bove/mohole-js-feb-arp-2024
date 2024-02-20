@@ -1,4 +1,13 @@
 
+/*
+  Fate una funzione per rispondere a ciiascuna domanda
+    - fetchare della risorsa
+    - manipolare il dato per arrivare alla risposta
+    - inserire la risposta dentro al footer della carta
+  
+*/
+
+
 window.addEventListener('DOMContentLoaded', () => {
   main();
 });
