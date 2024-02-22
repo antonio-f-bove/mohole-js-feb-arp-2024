@@ -29,22 +29,9 @@ async function solveQuestion1() {
     .sort((a, b) => b.speed - a.speed);
   // console.log({ speeds });
 
-  injectAnswer(speeds[0], 1);
+  const maxStarship = speeds[0];
+  injectAnswer(`${maxStarship.name}'s speed: ${maxStarship.speed} MGLT`, 1);
 }
-
-// async function solveQuestion2() {
-//   let starships = await fetchAll('starships');
-//   starships = starships
-//     .map(s => ({name: s.name, maxNumOnBoard: parseInt(s.passengers) + parseInt(s.crew)}))
-//     .filter(s => !isNaN(s.maxNumOnBoard))
-//
-//   console.log({ starships });
-//
-//   const max = Math.max(...starships.map(s => s.maxNumOnBoard));
-//   console.log({max})
-//   const biggestShip = starships.find(s => s.maxNumOnBoard === max);
-//   console.log({ biggestShip });
-// }
 
 async function solveQuestion2() {
   let starships = await fetchAll('starships');
