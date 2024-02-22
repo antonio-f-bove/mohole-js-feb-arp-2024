@@ -12,13 +12,32 @@ window.addEventListener('DOMContentLoaded', () => {
   main();
 });
 
-async function main() {
-  solveQuestion1()
-  solveQuestion2()
-  solveQuestion3()
-  solveQuestion4()
-  solveQuestion5()
-  solveQuestion6()
+function main() {
+  const qFunctions = {
+    1: solveQuestion1,
+    2: solveQuestion2,
+    3: solveQuestion3,
+    4: solveQuestion4,
+    5: solveQuestion5,
+    6: solveQuestion6,
+  };
+
+  Object.keys(qFunctions).forEach((qId) => {
+    console.log({ qId })
+    const card = document.querySelector(`#card-id-${qId}`);
+    const button = card.querySelector('a');
+    button.addEventListener('click', async (ev) => {
+      const b = ev.target;
+      b.classList.add('disabled');
+      b.innerHTML = `
+        <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+        <span class="visually-hidden" role="status">Loading...</span>
+      `;
+      await qFunctions[qId]();
+      b.innerHTML = 'Done!';
+      b.classList.add('btn-success')
+    });
+  });
 }
 
 async function solveQuestion1() {
@@ -53,10 +72,6 @@ async function solveQuestion2() {
   injectAnswer(`${maxStarship.name}'s capacity: ${maxStarship.totCapacity}`, 2);
 }
 
-function solveQuestion3() {}
-function solveQuestion4() {}
-function solveQuestion5() {}
-function solveQuestion6() {}
 async function solveQuestion3() {
   let people = await fetchAll('people');
   people = people
@@ -134,4 +149,12 @@ async function fetchAll(resource) {
 }
 
 function injectAnswer(answer, questionNumber) {
+  const cardEl = document.getElementById(`card-id-${questionNumber}`)
+  const buttonEl = cardEl.querySelector('a')
+  const answerEl = cardEl.querySelector('em')
+
+  // buttonEl.addEventListener('click', () => {
+  answerEl.innerHTML = answer
+  // answerEl.classList.add('bg-success')
+  // })
 }
