@@ -23,7 +23,7 @@ function main() {
   };
 
   Object.keys(qFunctions).forEach((qId) => {
-    console.log({ qId })
+    // console.log({ qId })
     const card = document.querySelector(`#card-id-${qId}`);
     const button = card.querySelector('a');
     button.addEventListener('click', async (ev) => {
@@ -104,7 +104,7 @@ async function solveQuestion5() {
     .filter(h => !isNaN(h));
   const avgHeight = spcsHeights.reduce((sum, curr) => sum + curr, 0) / spcsHeights.length;
 
-  injectAnswer(`${avgHeight} cm`, 5);
+  injectAnswer(`${Math.trunc(avgHeight * 100) / 100} cm`, 5);
 }
 
 async function solveQuestion6() {
