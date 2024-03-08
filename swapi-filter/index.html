@@ -13,26 +13,26 @@
 <body>
   <div class="container vh-100">
 
-    <header style="height: 48px;" class="py-3">
+    <header style="height: 60px;" class="py-3">
       <form class="row gy-2 gx-3 align-items-center">
         <div class="col-auto">
           <label class="visually-hidden" for="autoSizingInput">Name</label>
-          <input type="text" class="form-control" id="autoSizingInput" placeholder="Character's name">
+          <input type="text" class="form-control" id="nameInput" placeholder="Character's name">
         </div>
         <div class="col-auto">
           <label class="visually-hidden" for="autoSizingSelect">Preference</label>
-          <select class="form-select" id="autoSizingSelect">
+          <select class="form-select" id="filmSelect">
             <!-- <option selected>Choose...</option> -->
-              <option default value="null">Filter films...</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
+            <option default value="''">All</option>
+            <!-- <option value="1">One</option> -->
+            <!-- <option value="2">Two</option> -->
+            <!-- <option value="3">Three</option> -->
           </select>
         </div>
       </form>
     </header>
 
-    <div class="row" style="height: calc(100vh - 48px);">
+    <div class="row" style="height: calc(100vh - 60px);">
 
       <div class="col-4 h-100">
         <aside class="py-3 h-100">

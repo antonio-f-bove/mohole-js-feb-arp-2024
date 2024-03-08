@@ -1,31 +1,15 @@
-async function fetchAllPeople() {
-  let people = [];
-  let url = 'http://swapi.dev/api/people/';
+import { fetchAllPeople, fetchAllFilms } from "./api.js";
+import { renderList, renderCard } from "./render.js";
 
-  while (url) {
-    const resp = await fetch(url);
-    const { results, next } = await resp.json();
-    people = people.concat(results);
-    url = next;
-  }
+const films = await fetchAllFilms();
+const filmSelect = document.getElementById('filmSelect');
+films.forEach(f => {
+  const opt = document.createElement('option');
+  opt.value = f.episode_number;
+  opt.textContent = f.title;
 
-  return people;
-}
-
-function renderList(elements) {
-  const listGroup = document.querySelector('.list-group');
-
-  for (const el of elements) {
-    listGroup.appendChild(el)
-  }
-}
-
-
-
-
-
-
-
+  filmSelect.appendChild(opt);
+});
 
 
 let people = await fetchAllPeople();
@@ -37,13 +21,31 @@ for (const person of people) {
   listItem.textContent = person.name;
 
   const personWithHtml = { ...person, html: listItem };
-  listItem.addEventListener('click', () => renderCard(personWithHtml));
+
+  listItem.addEventListener('click', () => {
+    peopleWithHtml.forEach(p => {
+      if (p.html.classList.contains('active')) {
+        p.html.classList.remove('active')
+      }
+    });
+    personWithHtml.html.classList.add('active');
+
+    renderCard(personWithHtml);
+  });
 
   peopleWithHtml.push(personWithHtml);
 }
 
-console.log({peopleWithHtml})
+console.log({ peopleWithHtml })
 
 renderList(peopleWithHtml.map(({ html }) => html));
 renderCard(peopleWithHtml[0]);
+
+
+const nameInput = document.getElementById('nameInput');
+nameInput.addEventListener('keyup', (e) => {
+  const nameFilter = e.target.value.toLowerCase();
+  const filteredList = peopleWithHtml.filter(p => p.name.toLowerCase().includes(nameFilter));
+  renderList(filteredList.map(el => el.html))
+});
 
