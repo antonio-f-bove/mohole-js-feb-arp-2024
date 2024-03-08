@@ -13,12 +13,12 @@
 // }
 
 export async function fetchAllPeople() {
-  const resp = await fetch('./people.json');
+  const resp = await fetch('../data/people.json');
   return await resp.json();
 }
 
 
 export async function fetchAllFilms() {
-  const resp = await fetch('./films.json');
+  const resp = await fetch('../data/films.json');
   return await resp.json();
 }

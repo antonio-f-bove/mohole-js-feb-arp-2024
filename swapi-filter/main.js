@@ -1,5 +1,6 @@
-import { fetchAllPeople, fetchAllFilms } from "./api.js";
-import { renderList, renderCard } from "./render.js";
+import { fetchAllPeople, fetchAllFilms } from "./modules/api.js";
+import { renderList, renderCard } from "./modules/render.js";
+import { filterList } from './modules/utils.js';
 
 const films = await fetchAllFilms();
 const filmSelect = document.getElementById('filmSelect');
@@ -10,7 +11,6 @@ films.forEach(f => {
 
   filmSelect.appendChild(opt);
 });
-
 
 let people = await fetchAllPeople();
 const peopleWithHtml = [];
@@ -33,19 +33,25 @@ for (const person of people) {
     renderCard(personWithHtml);
   });
 
-  peopleWithHtml.push(personWithHtml);
+  peopleWithHtml.push(personWithHtml)
 }
 
-console.log({ peopleWithHtml })
+let filmFilter = '';
+let nameFilter = '';
 
-renderList(peopleWithHtml.map(({ html }) => html));
-renderCard(peopleWithHtml[0]);
-
+filmSelect.addEventListener('change', (e) => {
+  filmFilter = e.target.value;
+  const filteredList = filterList(peopleWithHtml, nameFilter, filmFilter);
+  renderList(filteredList.map(({ html }) => html));
+})
 
 const nameInput = document.getElementById('nameInput');
 nameInput.addEventListener('keyup', (e) => {
-  const nameFilter = e.target.value.toLowerCase();
-  const filteredList = peopleWithHtml.filter(p => p.name.toLowerCase().includes(nameFilter));
+  nameFilter = e.target.value.toLowerCase();
+  const filteredList = filterList(peopleWithHtml, nameFilter, filmFilter);
   renderList(filteredList.map(el => el.html))
 });
+
+renderList(peopleWithHtml.map(({ html }) => html));
+renderCard(peopleWithHtml[0]);
 
