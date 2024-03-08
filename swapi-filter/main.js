@@ -1,17 +1,8 @@
 import { fetchAllPeople, fetchAllFilms } from "./modules/api.js";
 import { renderList, renderCard } from "./modules/render.js";
-import { filterList } from './modules/utils.js';
 
 // fetch dei film e composizione delle <option> della <select>
 const films = await fetchAllFilms();
-const filmSelect = document.getElementById('filmSelect');
-films.forEach(f => {
-  const opt = document.createElement('option');
-  opt.value = f.episode_number;
-  opt.textContent = f.title;
-
-  filmSelect.appendChild(opt);
-});
 
 // fetch dei personaggi e composizione della lista nell'<aside>
 let people = await fetchAllPeople();
@@ -27,9 +18,6 @@ for (const person of people) {
   // gestione del click su un elemento dell'<aside>
   listItem.addEventListener('click', (event) => {
     // gestione della classe .active 
-    const list = event.target.parentElement;
-    list.querySelectorAll('a').forEach(el => el.classList.remove('active'));
-    event.target.classList.add('active');
 
     // render
     renderCard(personWithHtml);
@@ -38,21 +26,18 @@ for (const person of people) {
   peopleWithHtml.push(personWithHtml)
 }
 
-// set degli ascoltatori su <input> e <select> rispettivamente
 let filmFilter = '';
 let nameFilter = '';
 
-filmSelect.addEventListener('change', (e) => {
-  filmFilter = e.target.value;
-  const filteredList = filterList(peopleWithHtml, nameFilter, filmFilter);
-  renderList(filteredList.map(({ html }) => html));
-})
+// creazione del ascoltatore dell'evento 'change' sulla <select>
 
+
+// creazione del ascoltaore dell'evento 'keyup' sul <input>
 const nameInput = document.getElementById('nameInput');
 nameInput.addEventListener('keyup', (e) => {
   nameFilter = e.target.value.toLowerCase();
-  const filteredList = filterList(peopleWithHtml, nameFilter, filmFilter);
-  renderList(filteredList.map(el => el.html))
+  // implementare il filtro dell'array
+  // chiamare renderList() con la lista filtrata
 });
 
 renderList(peopleWithHtml.map(({ html }) => html));
