@@ -2,6 +2,7 @@ import { fetchAllPeople, fetchAllFilms } from "./modules/api.js";
 import { renderList, renderCard } from "./modules/render.js";
 import { filterList } from './modules/utils.js';
 
+// fetch dei film e composizione delle <option> della <select>
 const films = await fetchAllFilms();
 const filmSelect = document.getElementById('filmSelect');
 films.forEach(f => {
@@ -12,6 +13,7 @@ films.forEach(f => {
   filmSelect.appendChild(opt);
 });
 
+// fetch dei personaggi e composizione della lista nell'<aside>
 let people = await fetchAllPeople();
 const peopleWithHtml = [];
 
@@ -22,18 +24,21 @@ for (const person of people) {
 
   const personWithHtml = { ...person, html: listItem };
 
-  listItem.addEventListener('click', () => {
-    peopleWithHtml.forEach(p => {
-      p.html.classList.remove('active')
-    });
-    personWithHtml.html.classList.add('active');
+  // gestione del click su un elemento dell'<aside>
+  listItem.addEventListener('click', (event) => {
+    // gestione della classe .active 
+    const list = event.target.parentElement;
+    list.querySelectorAll('a').forEach(el => el.classList.remove('active'));
+    event.target.classList.add('active');
 
+    // render
     renderCard(personWithHtml);
   });
 
   peopleWithHtml.push(personWithHtml)
 }
 
+// set degli ascoltatori su <input> e <select> rispettivamente
 let filmFilter = '';
 let nameFilter = '';
 
