@@ -24,9 +24,7 @@ for (const person of people) {
 
   listItem.addEventListener('click', () => {
     peopleWithHtml.forEach(p => {
-      if (p.html.classList.contains('active')) {
-        p.html.classList.remove('active')
-      }
+      p.html.classList.remove('active')
     });
     personWithHtml.html.classList.add('active');
 
@@ -53,5 +51,5 @@ nameInput.addEventListener('keyup', (e) => {
 });
 
 renderList(peopleWithHtml.map(({ html }) => html));
-renderCard(peopleWithHtml[0]);
+// renderCard(peopleWithHtml[0]);
 
