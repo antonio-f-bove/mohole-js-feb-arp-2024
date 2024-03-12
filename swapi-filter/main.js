@@ -3,6 +3,23 @@ import { renderList, renderCard } from "./modules/render.js";
 
 // fetch dei film e composizione delle <option> della <select>
 const films = await fetchAllFilms();
+const select = document.getElementById('filmSelect');
+
+// for (const f of films) {
+//   const opt = document.createElement('option');
+//   opt.value = f.episode_number;
+//   opt.textContent = f.title;
+//
+//   select.appendChild(opt);
+// }
+
+films.forEach(f => {
+  const opt = document.createElement('option');
+  opt.value = f.episode_number;
+  opt.textContent = f.title;
+
+  select.appendChild(opt);
+});
 
 // fetch dei personaggi e composizione della lista nell'<aside>
 let people = await fetchAllPeople();
