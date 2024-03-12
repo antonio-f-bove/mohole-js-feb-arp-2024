@@ -31,7 +31,7 @@ for (const person of people) {
   listItem.textContent = person.name;
 
   const personWithHtml = { ...person, html: listItem };
-
+  
   // gestione del click su un elemento dell'<aside>
   listItem.addEventListener('click', (event) => {
     // gestione della classe .active 
@@ -47,6 +47,17 @@ let filmFilter = '';
 let nameFilter = '';
 
 // creazione del ascoltatore dell'evento 'change' sulla <select>
+// select.addEventListener('change', event => {
+//
+// });
+select.addEventListener('change', function(event) {
+  filmFilter = event.target.value;
+  const filteredList = peopleWithHtml.filter(p =>
+    p.films.map(film => film[film.length - 2]).includes(filmFilter)
+  );
+  console.log({filteredList})
+  renderList(filteredList.map(f => f.html));
+});
 
 
 // creazione del ascoltaore dell'evento 'keyup' sul <input>
@@ -54,7 +65,9 @@ const nameInput = document.getElementById('nameInput');
 nameInput.addEventListener('keyup', (e) => {
   nameFilter = e.target.value.toLowerCase();
   // implementare il filtro dell'array
+  const filteredList = peopleWithHtml.filter(p => p.name.toLowerCase().includes(nameFilter));
   // chiamare renderList() con la lista filtrata
+  renderList(filteredList.map(f => f.html));
 });
 
 renderList(peopleWithHtml.map(({ html }) => html));
