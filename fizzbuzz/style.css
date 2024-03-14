@@ -1,0 +1,32 @@
+#grid {
+  margin: 30px auto;
+  width: 500px;
+
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.cell {
+  flex: 0 0 auto;
+  flex-basis: 100px;
+  max-width: 100px;
+  height: 100px;
+  line-height: 100px;
+  /* border-radius: 10%; */
+  text-align: center;
+
+  background-color: #B8B8B8;
+}
+
+.fizz {
+  background-color: #6D95C9;
+}
+
+.buzz {
+  background-color: #FFB74D;
+}
+
+.fizzbuzz {
+  background-color: #E53935;
+}
