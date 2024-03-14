@@ -12,7 +12,35 @@
 </head>
 
 <body>
-  <div id="grid" ></div>
+  <h1 class="text-center">Configure your fizzbuzz!</h1>
+  <div class="container d-flex flex-column align-items-center mt-5">
+
+      <style>
+      .input-group-text {
+        width: 90px;
+      }
+      </style>
+
+      <div class="input-group input-group-lg mb-3">
+        <span class="input-group-text" id="N">N</span>
+        <input type="text" class="form-control" value="25" placeholder="Number of cells in grid" aria-label="Number of cells in grid"
+          aria-describedby="N">
+      </div>
+      <div class="input-group input-group-lg mb-3">
+        <span class="input-group-text" id="fizz">fizz</span>
+        <input type="text" class="form-control" value="3"placeholder="the fizz number" aria-label="the fizz number"
+          aria-describedby="fizz">
+      </div>
+      <div class="input-group input-group-lg mb-3">
+        <span class="input-group-text" id="buzz">buzz</span>
+        <input type="text" class="form-control" value="5" placeholder="the buzz number" aria-label="the buzz number"
+          aria-describedby="buzz">
+      </div>
+      <button type="button" class="btn btn-secondary btn-lg w-50">fizzbuzz!</button>
+
+
+  </div>
+  <div id="grid" class="d-none"></div>
 </body>
 
 </html>
