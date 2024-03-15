@@ -1,14 +1,18 @@
 
 
-const configForm = document.getElementById('config-form');
+const config = document.getElementById('config');
 const grid = document.getElementById('grid');
 const button = document.getElementById('fizzbuzz-button');
+const backButton = document.getElementById('back-button');
 
 button.addEventListener('click', () => {
   const { N, fizz, buzz } = getParams();
   fizzbuzz(N, fizz, buzz);
-  grid.classList.remove('d-none');
-  configForm.classList.add('d-none');
+  toggleSections();
+});
+
+backButton.addEventListener('click', () => {
+  toggleSections();
 });
 
 function getParams() {
@@ -25,7 +29,7 @@ function fizzbuzz(N, fizz, buzz) {
   // const N = 25, fizz = 3, buzz = 5;
 
   for (let i = 1; i <= N; i++) {
-    const result = getFizzbuzz(i, fizz, buzz);
+    const result = getStringFromIndex(i, fizz, buzz);
 
     const cell = document.createElement('div');
     cell.textContent = result;
@@ -38,7 +42,7 @@ function fizzbuzz(N, fizz, buzz) {
   }
 }
 
-function getFizzbuzz(i, fizz, buzz) {
+function getStringFromIndex(i, fizz, buzz) {
   let str = '';
 
   if (i % fizz === 0) {
@@ -53,3 +57,9 @@ function getFizzbuzz(i, fizz, buzz) {
 
   return str;
 }
+
+function toggleSections() {
+  grid.parentElement.classList.toggle('d-none');
+  config.classList.toggle('d-none');
+}
+

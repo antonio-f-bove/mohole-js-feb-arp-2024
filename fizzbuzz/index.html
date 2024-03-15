@@ -11,8 +11,8 @@
   <script type="module" src="main.js"></script>
 </head>
 
-<body>
-  <div id="config-form" class="container d-flex flex-column align-items-center mt-5">
+<body class="p-3">
+  <section id="config" class="container d-flex flex-column align-items-center mt-5">
     <h1 class="text-center">Configure your fizzbuzz!</h1>
     <style>
       .input-group-text {
@@ -36,10 +36,12 @@
         aria-label="the buzz number" aria-describedby="buzz">
     </div>
     <button type="button" id="fizzbuzz-button" class="btn btn-secondary btn-lg w-50">fizzbuzz!</button>
+  </section>
 
-
-  </div>
-  <div id="grid" class="d-none"></div>
+  <section class="d-none">
+    <button id="back-button" type="button" class="btn btn-outline-secondary"><- Back</button>
+    <div id="grid"></div>
+  </section>
 </body>
 
 </html>
