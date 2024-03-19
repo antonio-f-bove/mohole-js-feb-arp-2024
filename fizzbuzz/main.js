@@ -17,12 +17,14 @@ backButton.addEventListener('click', () => {
 
 function getParams() {
   const inputs = document.querySelectorAll('input.form-control');
-  return Object.fromEntries([...inputs].map(({ name, value }) => [name, value]))
-  // return {
-  //   N: inputs[0].value,
-  //   fizz: inputs[1].value,
-  //   buzz: inputs[2].value,
-  // };
+  // return Object.fromEntries([...inputs].map(({ name, value }) => [name, value]))
+
+  const params = {};
+  inputs.forEach(input => {
+    params[input.name] = input.value;
+  });
+
+  return params;
 }
 
 function fizzbuzz(N, fizz, buzz) {
