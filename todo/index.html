@@ -15,7 +15,7 @@
     <div class="card p-3 d-flex flex-column h-100">
         <header class="d-flex justify-content-between mb-3">
             <div>
-                <input type="text" id="current-date" class="form-control" value="28/03/2024" />
+                <input type="text" id="current-date" disabled class="form-control" value="28/03/2024" />
             </div>
             <div id="filter-btns" class="btn-group" role="group">
                 <button type="button" class="btn btn-secondary active">Todo</button>
@@ -24,7 +24,10 @@
         </header>
         <main class="mb-3 flex-grow-1" style="height: 0px;">
             <ul class="list-group list-group-flush h-100 overflow-auto">
-                <li class="list-group-item">An item</li>
+                <li class="list-group-item d-flex justify-content-between">
+                    <span>todo1</span>
+                    <input type="checkbox" />
+                </li>
                 <li class="list-group-item">A second item</li>
                 <li class="list-group-item">A third item</li>
                 <li class="list-group-item">A third item</li>
