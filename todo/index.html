@@ -13,16 +13,16 @@
 
 <body class="p-5 vh-100">
     <div class="card p-3 d-flex flex-column h-100">
-        <section class="d-flex justify-content-between mb-3">
+        <header class="d-flex justify-content-between mb-3">
             <div>
                 <input type="text" id="current-date" class="form-control" value="28/03/2024" />
             </div>
-            <div class="btn-group" role="group">
+            <div id="filter-btns" class="btn-group" role="group">
                 <button type="button" class="btn btn-secondary active">Todo</button>
                 <button type="button" class="btn btn-secondary">All</button>
             </div>
-        </section>
-        <section class="mb-3 flex-grow-1" style="height: 0px;">
+        </header>
+        <main class="mb-3 flex-grow-1" style="height: 0px;">
             <ul class="list-group list-group-flush h-100 overflow-auto">
                 <li class="list-group-item">An item</li>
                 <li class="list-group-item">A second item</li>
@@ -38,13 +38,13 @@
                 <li class="list-group-item">A third item</li>
                 <li class="list-group-item">A third item</li>
             </ul>
-        </section>
-        <section>
+        </main>
+        <footer>
             <div class="input-group">
                 <input type="text" class="form-control" placeholder="Enter a new todo..." />
                 <button class="btn btn-primary" type="button" id="add-new-btn">Add Todo</button>
             </div>
-        </section>
+        </footer>
     </div>
 </body>
 
