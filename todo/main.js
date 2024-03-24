@@ -2,7 +2,7 @@ import { todos } from './data/todos.js';
 
 const filterBtns = document.querySelectorAll('header button');
 const todoList = document.querySelector('main ul');
-const newTodo = document.querySelector('footer input');
+const addTodoInput = document.querySelector('footer input');
 const addTodoBtn = document.querySelector('footer button');
 
 for (const todo of todos) {
@@ -17,3 +17,18 @@ for (const todo of todos) {
 
     todoList.appendChild(li);
 }
+
+addTodoBtn.addEventListener('click', () => {
+
+});
+addTodoInput.addEventListener('keydown', (e) => {
+    if (e.key != 'Enter') {
+        return;
+    }
+    console.log('enter!')
+    todos.push({
+        description: addTodoInput.value,
+        done: false,
+    });
+    console.log(todos)
+});
