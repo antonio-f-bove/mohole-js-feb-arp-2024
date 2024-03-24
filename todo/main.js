@@ -1,6 +1,6 @@
 import { todos } from './data/todos.js';
 
-const filterBtns = document.querySelectorAll('header button');
+const showCompleted = document.getElementById('show-completed');
 const todosLeft = document.querySelector('header .badge');
 const todoList = document.querySelector('main ul');
 const addTodoInput = document.querySelector('footer input');
@@ -20,6 +20,10 @@ addTodoInput.addEventListener('keydown', (e) => {
   }
   addTodo();
 });
+
+showCompleted.addEventListener('change', (e) => {
+  console.log(e.target.checked)
+})
 
 function addTodo() {
   const newTodo = {

@@ -15,11 +15,14 @@
     <div class="card p-3 d-flex flex-column h-100">
       <header class="d-flex justify-content-between mb-3">
 	<h3><span class="badge text-bg-secondary"></span> todos left</h3>
-	<div id="filter-btns" class="btn-group" role="group">
+	<input type="checkbox" class="btn-check" id="show-completed" autocomplete="off">
+	<label class="btn" for="show-completed">Show completed</label>
+	<!--
+	  <div id="filter-btns" class="btn-group" role="group">
 	  <button type="button" class="btn btn-secondary active">Todo</button>
 	  <button type="button" class="btn btn-secondary">All</button>
-	</div>
-      </header>
+	  </div>
+	-->      </header>
       <main class="mb-3 flex-grow-1" style="height: 0px;">
 	<ul class="list-group list-group-flush h-100 overflow-auto"></ul>
       </main>
