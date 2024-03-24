@@ -58,6 +58,13 @@ function renderTodos() {
     li.querySelector('span').textContent = todo.description;
     li.querySelector('input').checked = todo.done;
 
+    li.querySelector('input').addEventListener('change', (e) => {
+      const done = e.target.checked;
+      todo.done = done;
+      console.log(li.done)
+      setTimeout(renderTodos, 500);
+    });
+
     todoList.appendChild(li);
   }
 }
