@@ -23,7 +23,8 @@ addTodoInput.addEventListener('keydown', (e) => {
 
 showCompleted.addEventListener('change', (e) => {
   console.log(e.target.checked)
-})
+  renderTodos();
+});
 
 function addTodo() {
   const newTodo = {
@@ -44,6 +45,10 @@ function renderTodos() {
   todoList.innerHTML = '';
 
   for (const todo of todos) {
+    if (!showCompleted.checked && todo.done) {
+      continue;
+    }
+
     const li = document.createElement('li');
     li.className = "list-group-item d-flex justify-content-between";
     li.innerHTML = `
