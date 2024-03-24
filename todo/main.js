@@ -36,7 +36,7 @@ function addTodo() {
 }
 
 function renderTodos() {
-  todosLeft.textContent = todos.length;
+  todosLeft.textContent = todos.filter(({done}) => !done).length;
   todoList.innerHTML = '';
 
   for (const todo of todos) {
