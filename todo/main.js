@@ -1,7 +1,8 @@
 import { todos } from './data/todos.js';
 
 const showCompleted = document.getElementById('show-completed');
-const todosLeft = document.querySelector('header .badge');
+const badges = document.querySelectorAll('header .badge');
+const [leftTodos, totTodos] = badges;
 const todoList = document.querySelector('main ul');
 const addTodoInput = document.querySelector('footer input');
 const addTodoBtn = document.querySelector('footer button');
@@ -9,9 +10,6 @@ const addTodoBtn = document.querySelector('footer button');
 renderTodos();
 
 addTodoBtn.addEventListener('click', () => {
-  if (!addTodoInput.value) {
-    return;
-  }
   addTodo();
 });
 addTodoInput.addEventListener('keydown', (e) => {
@@ -21,8 +19,7 @@ addTodoInput.addEventListener('keydown', (e) => {
   addTodo();
 });
 
-showCompleted.addEventListener('change', (e) => {
-  console.log(e.target.checked)
+showCompleted.addEventListener('change', () => {
   renderTodos();
 });
 
@@ -31,17 +28,24 @@ function addTodo() {
     description: addTodoInput.value,
     done: false,
   };
-  if (todos.map(({description}) => description).includes(newTodo.description)) {
-    // give feedback!
+
+  if (!newTodo.description || todos.map(({description}) => description).includes(newTodo.description)) {
+    addTodoInput.classList.add('is-invalid');
     return;
   }
+
   todos.push(newTodo);
+
   renderTodos();
+
   addTodoInput.value = '';
+  addTodoInput.classList.remove('is-invalid')
 }
 
 function renderTodos() {
-  todosLeft.textContent = todos.filter(({done}) => !done).length;
+  totTodos.textContent = todos.length;
+  leftTodos.textContent = todos.filter(({done}) => !done).length;
+
   todoList.innerHTML = '';
 
   for (const todo of todos) {
@@ -59,9 +63,7 @@ function renderTodos() {
     li.querySelector('input').checked = todo.done;
 
     li.querySelector('input').addEventListener('change', (e) => {
-      const done = e.target.checked;
-      todo.done = done;
-      console.log(li.done)
+      todo.done = e.target.checked;
       setTimeout(renderTodos, 500);
     });
 

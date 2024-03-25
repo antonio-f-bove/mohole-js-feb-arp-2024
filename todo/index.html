@@ -14,7 +14,7 @@
   <body class="p-5 vh-100">
     <div class="card p-3 d-flex flex-column h-100">
       <header class="d-flex justify-content-between mb-3">
-	<h3><span class="badge text-bg-secondary"></span> todos left</h3>
+	<h3>todo <span class="badge text-bg-secondary"></span> | total <span class="badge text-bg-secondary"></span></h3>
 	<input type="checkbox" class="btn-check" id="show-completed" autocomplete="off">
 	<label class="btn btn-outline-secondary" for="show-completed">Show completed</label>
       </header>
@@ -25,6 +25,7 @@
 	<div class="input-group">
 	  <input type="text" class="form-control" placeholder="Enter a new todo..." />
 	  <button class="btn btn-primary" type="button" id="add-new-btn">Add Todo</button>
+	  <div class="invalid-feedback">Invalid todo</div>
 	</div>
       </footer>
     </div>
