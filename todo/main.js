@@ -57,7 +57,10 @@ function renderTodos() {
     li.className = "list-group-item d-flex justify-content-between";
     li.innerHTML = `
       <span></span>
-      <input type="checkbox" />
+      <div>
+	<input type="checkbox" class="me-2" />
+	<i class="bi bi-trash3" style="cursor: pointer;"></i>
+      </div>
       `;
     li.querySelector('span').textContent = todo.description;
     li.querySelector('input').checked = todo.done;
@@ -65,6 +68,11 @@ function renderTodos() {
     li.querySelector('input').addEventListener('change', (e) => {
       todo.done = e.target.checked;
       setTimeout(renderTodos, 500);
+    });
+
+    li.querySelector('i').addEventListener('click', () => {
+      todos.splice(todos.indexOf(todo), 1);
+      renderTodos();
     });
 
     todoList.appendChild(li);
