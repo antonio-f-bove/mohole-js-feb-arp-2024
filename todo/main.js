@@ -7,7 +7,7 @@ const todoList = document.querySelector('main ul');
 const addTodoInput = document.querySelector('footer input');
 const addTodoBtn = document.querySelector('footer button');
 
-renderTodos();
+render();
 
 addTodoBtn.addEventListener('click', () => {
   addTodo();
@@ -20,7 +20,7 @@ addTodoInput.addEventListener('keydown', (e) => {
 });
 
 showCompleted.addEventListener('change', () => {
-  renderTodos();
+  render();
 });
 
 function addTodo() {
@@ -29,20 +29,21 @@ function addTodo() {
     done: false,
   };
 
-  if (!newTodo.description || todos.map(({description}) => description).includes(newTodo.description)) {
+  if (!newTodo.description 
+      || todos.map(({description}) => description).includes(newTodo.description)) {
     addTodoInput.classList.add('is-invalid');
     return;
   }
 
   todos.push(newTodo);
 
-  renderTodos();
+  render();
 
   addTodoInput.value = '';
   addTodoInput.classList.remove('is-invalid')
 }
 
-function renderTodos() {
+function render() {
   totTodos.textContent = todos.length;
   leftTodos.textContent = todos.filter(({done}) => !done).length;
 
@@ -67,12 +68,12 @@ function renderTodos() {
 
     li.querySelector('input').addEventListener('change', (e) => {
       todo.done = e.target.checked;
-      setTimeout(renderTodos, 500);
+      setTimeout(render, 500);
     });
 
     li.querySelector('i').addEventListener('click', () => {
       todos.splice(todos.indexOf(todo), 1);
-      renderTodos();
+      render();
     });
 
     todoList.appendChild(li);
