@@ -1,13 +1,14 @@
 # JAVASCRIPT: test modulo 2
 
 ## Todo list
-L'applicativo da realizzare è la classica todo list, un'altro esercizio classico che viene spesso richiesto in sede di colloquio.
+L'applicativo da realizzare è la classica todo list, un'altro esercizio che viene spesso richiesto in sede di colloquio.
 
 ### Requisiti
 - mostrare una lista di todo
 - aggiungere dei todo alla lista
 - checkare dei todo (macarli come completi)
 - mostrare due totali (il numero di todo rimasti e il numero di todo totale)
+- cancellare dei todo
 - validazione: non si può aggiungere un todo con descrizione vuota o nulla
 - validazione: non si può aggiungere un todo con descrizione uguale ad una già esitente
 
